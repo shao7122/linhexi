@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.big{
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+.big img{
+    width: 400px;
+    height: 400px;
+}
+.mask{
+    width: 80px;
+    height: 80px;
+    background-color: rgba(248, 242, 242, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.box1{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 105%;
+    background-image: url(./imgs/2.jpg);
+    background-position: 2000px 2000px;
+    border: 1px solid;
+    display: none;
+}
+</style>
+<body>
+    <div class="big">
+        <img src="./imgs/2.jpg" alt="">
+        <div class="mask"></div>
+        <div class="box1"></div>
+    </div>
+</body>
+<script>
+    var big1 = document.querySelector('.big')
+    var box1 = document.querySelector('.box1')
+    var mask = document.querySelector('.mask')
+    big1.onmousedown = function(){
+        mask.style.display = 'block'  
+        box1.style.display = 'block'              
+                    
+    }
+</script>
+</html>

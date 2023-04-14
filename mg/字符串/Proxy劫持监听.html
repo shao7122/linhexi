@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<input type="text">
+<button>递增</button>
+<button>删除age</button>
+<button>添加姓名</button>
+<button>删除姓名</button>
+<input type="text">
+</body>
+<script>
+var obj = {
+    age: 12
+}
+var inputs = document.querySelectorAll('input')
+inputs[0].value = obj.age
+obj = new Proxy(obj, {
+    //b是源对象 自定义
+    get(b, key) {
+        if(key === 'age') {
+            return inputs[0].value
+        } else if(key === 'name') {
+            return inputs[1].value
+        }
+    },
+    set(b, key, value) {
+        if(key === 'age') {
+            return inputs[0].value = value
+        } else if(key === 'name') {
+            return inputs[1].value = value
+        }
+    },
+    deleteProperty(b, key) {
+        if(key === 'age') {
+            return inputs[0].value = ''
+        } else if(key === 'name') {
+            return inputs[1].value = ''
+        }
+    }
+   
+})
+var btns = document.querySelectorAll('button')
+btns[0].onclick = function() {
+    obj.age++
+}
+btns[2].onclick = function() {
+    obj.name = '李四'
+}
+btns[1].onclick = function() {
+    delete obj.age
+}
+btns[3].onclick = function() {
+    delete obj.name
+
+}
+// vue2中数据和视图双向绑定使用的defineProperty，动态给对象添加属性和删除属性都是不能双向绑定的
+// vue3中数据和视图双向绑定使用proxy，动态给对象添加属性和删除属性都是可以双向绑定的
+</script>     
+</html>

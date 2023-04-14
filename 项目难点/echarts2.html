@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/Mock.js/1.0.1-beta1/mock-min.js" type="application/javascript"></script>
+    <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/echarts/5.3.0-rc.1/echarts.js" type="application/javascript"></script>
+</head>
+<body>
+
+    <div id="app" style="width: 600px;height: 450px;border: 1px solid #000;"></div>
+    <style>
+        .abc{
+            background: red;
+            color: #fff
+        }
+    </style>
+
+
+    <script>
+
+
+
+        const arr = [
+            {id:1,name:'广东', pid:0},
+            {id:2,name:'广西', pid:0},
+            {id:3,name:'广州市',pid:1 },
+            {id:4,name:'深圳市',pid:1 },
+            {id:5,name:'南宁',pid:2 },
+            {id:6,name:'柳州',pid:2 },
+            {id:7,name:'白云区',pid:3 },
+            {id:8,name:'越秀区',pid:3 },
+            {id:9,name:'青秀区',pid:5 },
+            {id:10,name:'西乡塘区',pid:5 },
+            {id:11,name:'罗湖区',pid:4 },
+            {id:12,name:'福田区',pid:4 },
+            {id:13,name:'柳北区',pid:6 },
+            {id:14,name:'城中区',pid:6 },
+        ]
+
+
+
+
+        for(const item of arr){
+            const { pid } = item;
+            const father = arr.find(it=>it.id === pid);
+            if(father){
+                if(!father.children) father.children = [];
+                father.children.push(item)
+            }
+            
+        }
+
+        const newarr = arr.filter(item=>item.pid === 0)
+        console.log('newArr',newarr)
+      
+
+
+        
+
+
+
+        //  const res = [
+        //     {
+        //         id:1,name:'广东', pid:0 , children:[
+        //             {
+        //                 id:3,name:'广州市',pid:1 ,children: [
+        //                     {id:7,name:'白云区',pid:3 },
+        //                     {id:8,name:'越秀区',pid:3 },
+        //                 ]
+        //             },
+        //             {id:4,name:'深圳市',pid:1 },
+        //         ]
+        //     },
+        //  ]
+
+
+
+
+        const { list  } = Mock.mock({
+            "list|100":[
+                { 
+                    id:'@id', 
+                    "销量|50-100":1,
+                    "库存|50-100":1,
+                    "产量|50-100":1,
+                    type:"@pick(['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'])"
+                }
+            ]
+        })
+        console.log('list',list)
+
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('app'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            // backgroundColor:'blue',
+            title: {
+                text: '2210A',
+                show: true,
+                link: 'https://www.baidu.com',
+                subtext:'我是一个副标题',
+                shadowColor: '#ccc',
+                shadowBlur: 10,
+                shadowOffsetX:5,
+                shadowOffsetY:5,
+                backgroundColor:'#fff',
+                textStyle:{
+                    color:'red',
+                    fontSize: 25,
+                    textBorderWidth:2,
+                    textBorderColor:'blue',
+                    textBorderType: [5, 10],
+                    textBorderDashOffset: 5,
+                    width:300
+                   
+                    
+                }
+            },
+            legend: {
+                show: true,
+                data: ['销量','产量','库存'],
+                bottom: 0,
+                right: 0,
+                itemGap: 50,
+                itemWidth: 50,
+                itemHeight: 20,
+                itemStyle:{
+                    color: '#ff6600',
+                    opacity: 0.5
+                },
+                // formatter:'图例 {name}'
+                formatter(name){
+                    if(name==='销量') return '特别关注销量'
+                    return name
+                },
+                selected:{
+                    '产量':true,
+                    '库存':true
+                },
+                icon: 'image://https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'
+           
+
+            },
+            tooltip:{
+                padding:0,
+                borderWidth:0,
+                formatter(res){
+            
+                    const { data ,seriesName} = res;
+                  
+                    if(seriesName === '库存'){
+                    
+                       const maxarr = option.series[2].data.sort()
+                       const max = maxarr[maxarr.length-1]
+    
+                    //    if(max === data) return '当前是库存最多的'
+                        if(max === data) return '<div class="abc">当前是库存最多的</div>'
+                    }
+                    
+                }
+            },
+            xAxis: {
+                data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+                gridIndex:0,
+                // position: 'top',
+                offset: 20,
+                // type:'time',
+                name:'分类',
+                nameLocation: 'end',
+                nameTextStyle:{
+                    color:'red'
+                },
+                nameRotate: 45,
+                axisLine  :{
+                    show:true
+                },
+                axisLabel :{
+                    show: true,
+                    rotate: 45,
+                    // formatter:'分类 {value} '
+                    formatter(val){
+                        return '节日'+val
+                    }
+                }
+            },
+            yAxis: {
+               //    position: 'right'
+               max:100,
+               splitNumber:10,
+             
+            },
+
+            series: [
+                {
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                },
+                {
+                    name: '产量',
+                    type: 'bar',
+                    data: [15, 26, 36, 30, 18, 25]
+                },
+                {
+                    name: '库存',
+                    type: 'bar',
+                    data: [55, 51, 36, 70, 38, 45]
+                }
+            ]
+            
+       
+        };
+
+      
+      
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    </script>
+
+
+</body>
+</html>

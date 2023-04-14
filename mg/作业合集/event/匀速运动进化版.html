@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    margin: 0px;
+    padding: 0px;
+}
+div{
+    width: 100px;
+    height: 100px;
+    background-color: coral;
+    position: absolute;
+    left: 500px;
+}
+p{
+    border: 5px solid red;
+    height: 300px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+</style>
+<body>
+    <div></div>
+    <p></p>
+</body>
+<script>
+ //从右到左移动
+var div1 = document.querySelector('div')
+ var p1 = document.querySelector('p')
+ var dsq
+ //给div绑定点击事件
+ div1.onclick=function(){
+    move(div1,10)
+ }
+function move(ele,end){
+    clearInterval(dsq)
+    dsq = setInterval(function(){
+         //获取当前div的偏移量
+    var start = ele.offsetLeft
+    //设置步长
+    var speed = -7
+   //判断剩余的运动量是否小于等于步长
+   if((start-end)<=Math.abs(speed)){
+        //让div对象一步到位
+        ele.style.left= end+'px'
+        clearInterval(dsq)
+   }else{
+    //修改当前div对象中移动距离
+    ele.style.left=start+speed+'px'
+   }
+    },30)
+}
+</script>
+</html>

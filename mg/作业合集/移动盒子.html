@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        width: 40px;
+        height: 40px;
+        background-color: coral;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+</style>
+<body>
+    <div></div>
+</body>
+<script>
+    var div1 = document.querySelector('div')
+    var left1 = div1.offsetLeft
+    var top1 = div1.offsetTop
+   
+    document.onkeyup = function fn(e) {
+    // 事件对象的兼容写法
+    e = e || window.event
+    var num = 10
+    // 获取键盘码的兼容写法
+    var keyCode = e.keyCode || e.which
+    // 方法1
+    // switch (e.keyCode) {
+    //         /* 左 */
+    //         case 37:
+    //             div1.style.left = div1.offsetLeft - num + 'px'
+    //             break;
+    //             /*上  */
+    //         case 38:
+    //             div1.style.top = div1.offsetTop - num + 'px'
+    //             break;
+    //         case 39:
+    //             div1.style.left = div1.offsetLeft + num + 'px'
+    //             break;
+    //         case 40:
+    //             div1.style.top = div1.offsetTop + num + 'px'
+    //             break;
+    //     }
+    if(keyCode==37){
+        div1.style.left = div1.offsetLeft-num+'px'
+    }
+    if(keyCode==38){
+        div1.style.top = div1.offsetTop-num+'px'
+
+    }
+    if(keyCode==39){
+        div1.style.left = div1.offsetLeft+num+'px'
+        left=0
+    }
+    if(keyCode==40){
+        div1.style.top = div1.offsetTop+num+'px'
+
+    }
+    }
+   
+</script>
+</html>

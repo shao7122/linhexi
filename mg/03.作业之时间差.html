@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <script>
+        /* 
+（扩展）：编写函数，要求传入两个时间节点，能返回两个时间节点之间相差 多少天多少小时多少分钟多少秒？时间将会在页面中动态改变
+        需求分析：
+            1、创建两个时间，分别为：开始时间，结束时间
+            2、计算时间差：直接使用结束时间-开始时间
+            3、根据等到的时间差，来换算成天数小时...
+            4、通过定时器，让它每一秒中调用一次该函数，这样就能保证时间差在持续发生变化
+        */
+        //创建时间差的函数
+        function time1(){
+            //开始时间
+            var dt1=new Date()
+            //结束时间
+            var dt2=new Date("2022-12-1 0:0:0")
+            //计算时间差
+            var t1=Math.floor((dt2-dt1)/1000)
+            //还有多少天
+            var dd=Math.floor(t1/3600/24)
+            //小时
+            var hh=Math.floor((t1-dd*3600*24)/3600)
+            //分钟
+            var mm=Math.floor((t1-dd*3600*24-hh*3600)/60)
+            //秒
+            var ss=t1-dd*3600*24-hh*3600-mm*60
+            //拼接字符串
+            var str1="距离12月1号还有："+dd+"天"+hh+":"+mm+":"+ss
+            
+            //获取div对象
+            var div1=document.querySelector("div")
+            //把拼接好的字符串，渲染到div对象中
+            div1.innerHTML=str1
+        }
+        time1()
+        //使用定时器持续调用time1函数
+        setInterval(time1,1000)
+    </script>
+</body>
+</html>

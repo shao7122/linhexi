@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    margin: 0px;
+    padding: 0px;
+}
+div{
+    width: 100px;
+    height: 100px;
+    background-color: coral;
+  
+}
+.div1{
+    position: absolute;
+    left: 10px;
+}
+.div2{
+    position: absolute;
+    top: 200px;
+    left: 400px;
+}
+p{
+    border: 5px solid red;
+    height: 300px;
+    
+}
+.p1{
+    position: absolute;
+    left:0px;
+    top: 0px;
+}
+.p2{
+    position: absolute;
+    left: 500px;
+    top: 0px;
+}
+</style>
+<body>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <p class="p2"></p>
+    <p class="p1"></p>
+</body>
+<script>
+ //从右到左移动
+var div1 = document.querySelector('.div1')
+var div2 = document.querySelector('.div2')
+ var dsq
+ //给div绑定点击事件
+ div1.onclick=function(){
+    move(div1,400)
+ }
+ div2.onclick=function(){
+    move(div2,10)
+ }
+function move(ele,end){
+    clearInterval(dsq)
+   
+    //判断剩余的运动量是否小于等于步长
+   
+    dsq = setInterval(function(){
+    var start = ele.offsetLeft
+
+         //通过移动方向判断步长
+    if(start<end){
+        var speed = 7
+    }else{
+        var speed = -7
+    }
+         //获取当前div的偏移量
+    if(Math.abs(end-start)<Math.abs(speed)){
+        ele.style.left= end+'px'
+    }else{
+        ele.style.left=start+speed+'px'
+    }
+    },30)
+}
+</script>
+</html>

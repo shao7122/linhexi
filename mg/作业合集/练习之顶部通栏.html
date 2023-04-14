@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        height: 1200px;
+        /* 设置高度出现滚动条 */
+    }
+    div{
+        width: 100%;
+        height: 0px;
+        line-height: 50px;
+        background-color: burlywood;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        /* 使用固定定位 高度设置为0 溢出隐藏 */
+        position: fixed;
+        top: 0px;
+        /*  设置动画*/
+        transition: height 0.5s linear;
+        overflow: hidden;
+    }
+    p{
+        width: 50px;
+        height: 50px;
+        background-color: brown;
+        position: fixed;
+        right: 30px;
+        bottom: 100px;
+        display: none;
+    }
+</style>
+<body>
+    <div>顶部通栏</div>
+    <p>返回</p>
+</body>
+<script>
+    //获取操作对象
+    var div1 = document.querySelector('div')
+    var p1 = document.querySelector('p')
+    var t1 = 0 //当前滚动的距离 初始值
+    var top1  //下次的滚动距离 结束值
+    var dsq  //定时器
+    //给window对象绑定滚动事件
+    window.onscroll=function(){
+        //获取滚动距离
+        top1=document.documentElement.scrollTop
+        //判断当前的滚动距离是否大于300
+        if(top1>300){
+            //显示顶部通栏和p按钮 当到一定的滑动距离 让p标签显示 div盒子高度设置50px
+            div1.style.height='50px'
+            p1.style.display='block'
+        }else{
+            div1.style.height='0px'
+            p1.style.display='none'
+        }
+        //判断t1是否小于top1 这样可以判断是在上滑还是下滑
+        if(t1<top1){
+            //清除定时器
+            clearInterval(dsq)
+            //把top1的滚动距离赋值给t1 将它作为下一次的判断滚动距离
+            t1=top1
+        }
+
+    }
+    //给p标签绑定点击事件
+    p1.onclick = function(){
+        //移除定时器 为了解决连续点击滚动条速度过快的bug
+        clearInterval(dsq)
+        //创建定时器
+        dsq=setInterval(function(){
+            //使用当前滚动距离减去步长，得到下一次的滚动距离
+            t1=top1
+            //计算下一次的滚动距离
+            top1 = top1-10
+            //把结果重新赋值给滚动距离
+            document.documentElement.scrollTop=top1
+            //判断当前滚动距离是否小于等于0
+            if(top1<=0){
+                clearInterval(dsq)
+            }
+        },20)
+    }
+</script>
+</html>

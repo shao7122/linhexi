@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    ul{
+        width: 360px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: space-between;
+    }
+    ul li{
+        width: 100px;
+        height: 100px;
+        background-color: coral;
+    }
+</style>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+<script>
+    //获取操作对象
+    var lis=document.querySelectorAll('li')
+    //遍历每一个li对象
+    for(var i = 0;i<lis.length;i++){
+        //给每一个li对象添加一个定时器属性
+        lis[i].dsq=null
+        //给每个li对象绑定鼠标移入移除事件
+        lis[i].onmouseenter=function(){
+            move(this,30)
+        }
+        lis[i].onmouseleave=function(){
+            move(this,100)
+        }
+    }
+    //运动函数
+    function move(ele,end){
+        //清除定时器
+        clearInterval(ele,end)
+        //创建定时器
+        ele.dsq=setInterval(function(){
+            //获取当前div对象的透明度
+            if(ele.currentStyle){
+                var start=ele.currentStyle.opacity*100
+            }else{
+                var start=getComputedStyle(ele).opacity*100
+            }
+            //判断结束值是否大于起始值
+            if(end>start){
+                var speed=3
+            }else{
+                var speed=-3
+            }
+            //判断剩余的偏移量是否小于等于步长
+            if(Math.abs(end-start)<=Math.abs(speed)){
+                clearInterval(ele.dsq)
+                ele.style.opacity=end/100
+            }else{
+                ele.style.opacity=(start+speed)/100
+            }
+        },30)
+    }
+</script>
+</html>

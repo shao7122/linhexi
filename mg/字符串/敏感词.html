@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /* 1、给一段文章中的全部指定词语进行敏感词过滤
+    // 比如我要过滤 "SM"
+    // var str = 'asdasdSMasdasdasdSMsdasdasdSMsadasd'
+    // 需要结果
+    // asdasd**asdasdasd**sdasdasd**sadasd */
+    // 方法一
+    var str='asdasdSMasdasdasdSMsdasdasdSMsadasd'
+    function fn1(s1,g1){
+        //使用SM分割字符串
+        var ar1 = s1.split(g1)
+        //使用**连接
+        var s2 = ar1.join('**')
+        console.log(s1);
+        console.log(ar1);
+        console.log(s2);
+    }    fn1(str,'SM')
+    //方法二
+    // var str='asdasdSMasdasdasdSMsdasdasdSMsadasd'
+    // function fn1(sl,g1){
+    //     //保存过滤之后的字符串
+    //     var s2 = ''
+    //     //遍历所有字符串
+    //     for(var i = 0; i < sl.length; i++){
+    //         //判断当前字符是否等于过滤字符
+    //         if(sl.substr(i,g1.length)==g1){
+    //             i += g1.length
+    //         }else{
+    //             s2 +=sl[i]
+    //             i++
+    //         }
+    // }
+    // console.log(s2)
+    
+    // }fn1(str,'SM')
+
+    // 2、反转字符串，将字符串abcdefg反转为gfedcba
+    // var str = 'abcdefg'
+    // var arr=str.split("")
+    // //先将字符串转换成数组 然后将数组反转 然后使用join语法拼接
+    //     arr.reverse()
+    // var arr1=arr.join('')
+    //     console.log(arr1);
+
+    // 3、创建二维数组，大数组中包含了4个小数组，
+    // 分别找到每个小数组中的最大值，然后把它们串联起来，形成一个新数组。 
+    // var arr = [[22,23,45,66,54],[12,3,4,5,6],[12,34,55,554],[12,4,56,676,4]]
+    // var ar2=arr.flat(Infinity)
+    //     ar2.sort(function(a,b){
+    //         return a-b;
+    //     })
+    // var ar3 = ar2.splice((ar2.length-4))
+
+    // console.log(ar3);
+
+    // 4、确保字符串的每个单词首字母都大写，其余部分小写。
+    // 例如：hello world html
+    // 结果：Hello World Html
+    // function f(str){
+    // var arr = str.toLowerCase().split(" ")
+    // for(var i=0; i<arr.length; i++){
+    // arr[i] = arr[i].charAt(0).toUpperCase()+arr[i].slice(1);
+    // }
+    // return arr.join(" ");}
+    // console.log(f("hello world html"));
+
+    // 5、找到提供的句子中最长的单词，并计算它的长度 
+    // 例如字符串为："javascript css html hello asdkjgasjdasd" 
+    // var str = 'javascript css html hello asdkjgasjdasd'
+    // function fn(str){
+    //     var a = str.split(' ');
+    //     var long = 0;
+    //     for(var i = 0;i < a.length;i++){
+    //         if(a[i].length > long){
+    //             long = a[i].length;
+    //         }
+    //     }
+    //     return long
+    // }
+    // var s = fn(str)
+    // console.log(s);
+
+    // 6、删除字符串中所有的数字，并返回新字符串
+    // var str = 'sdsfdsfsdfds234vfddgdf5543'
+    // var ar = []
+    // for(var i = 0; i < str.length;i++){
+    //     var s = str.charCodeAt(i)
+    //     if( s>=65){
+    //     ar.push(arr[i])
+
+    // }
+    // }
+    // console.log(ar);
+   
+        
+</script>
+</html>

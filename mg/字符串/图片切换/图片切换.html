@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    div{
+        width: 350px;
+        height: 190px;
+        margin: 100px auto;
+        border: 1px solid;
+        border-radius: 10px;
+        position: relative;
+    }
+    ul{
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translate(-50%);
+    }
+    div li{
+        float: left;
+        list-style: none;
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        background-color: azure;
+        border: 1px solid;
+
+    }
+    .show{
+        background-color: brown;
+    }
+    
+</style>
+<body>
+    <div>
+        <img src="./images/1.gif" alt="">
+        <img src="./images/2.gif" alt="">
+        <img src="./images/3.gif" alt="">
+        <img src="./images/4.gif" alt="">
+        <img src="./images/5.gif" alt="">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+        <a href="Javascript"></a>
+    </div>
+</body>
+<script>
+    //获取操作对象
+    var img1 = document.querySelector('img')
+    var lis = document.querySelectorAll('li')
+    // var dsp;
+    // var a=1;
+    // function fn(){
+    //     a++
+    //     if(a>5){
+    //         a=1
+    //     }
+    //     img1.setAttribute("src","./images/"+a+".gif")
+    // }
+    // dsp = setInterval(fn,2000)
+
+    // //遍历每一个li对象
+    for(var i =0; i<lis.length;i++){
+        //给每一个li添加下标属性
+        lis[i].setAttribute('a1',i)
+        //给每一个li对象绑定点击事件
+        lis[i].onclick=function(){
+           var index = this.getAttribute('a1')
+           var s= index +1
+         img1.setAttribute("src","./images/"+s+".gif")
+       
+
+        //    for(var j=0; j <lis.length;j++){
+        //     lis[j].clasName = ''
+
+        //    }
+        //    this.className='bg'
+
+        }
+    }    
+</script>
+</html>

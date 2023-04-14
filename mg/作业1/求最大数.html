@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //  var a =prompt('请输入数字a')
+    // var b =prompt('请输入数字b')
+    // var c =prompt('请输入数字c')
+    // function fn(a,b,c){
+    //     if(a>b && b>c){
+    //         console.log('最大值为'+a);
+    //     }else if(b>c){
+    //         console.log('最大值为'+b);
+
+    //     }else {
+    //         console.log('最大值为'+c);
+
+    //     }
+    // }
+    // fn(a,b,c)
+    function fn(){
+        var arg = arguments
+    for(var i=1; i<arg.length;i++){
+        var max = arg[0]
+        if(arg[i] > max){
+            max = arg[i]
+        }
+
+        
+    }
+    console.log(max);
+    }
+    fn(10,30,40,5,60)
+</script>
+</html>

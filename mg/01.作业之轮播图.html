@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px;
+            padding: 0px;
+            list-style: none;
+            text-decoration: none;
+        }
+        .box{
+            width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            border:1px solid red;
+            position: relative;
+        }
+        .imgbox{
+            width: 400px;
+            height: 300px;
+            overflow: auto;
+        }
+        .imgdiv{
+            width: 2000px;
+            height: 300px;
+        }
+        .imgdiv img{
+            width: 400px;
+            height: 300px;
+            float: left;
+        }
+        .arrow{
+            display: inline-block;
+            width: 50px;
+            height: 40px;
+            font-size: 30px;
+            font-weight: bold;
+            position: absolute;
+            top:130px;
+        }
+        .left{
+            left:20px;
+        }
+        .right{
+            right: 20px;
+        }
+        ul{
+            display: flex;
+            justify-content: center;
+            width: 150px;
+            position: absolute;
+            bottom: 15px;
+            left:125px;
+        }
+        ul li{
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            background-color: #666;
+            color:#fff;
+            border-radius: 50%;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .bg{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="imgbox">
+            <div class="imgdiv">
+                <img src="./imgs/1.jpg" alt="">
+                <img src="./imgs/2.jpg" alt="">
+                <img src="./imgs/3.jpg" alt="">
+                <img src="./imgs/4.jpg" alt="">
+                <img src="./imgs/5.jpg" alt="">
+            </div>
+        </div>
+        <a href="javascript:;" class="arrow left">&lt;</a>
+        <a href="javascript:;" class="arrow right">&gt;</a>
+        <ul>
+            <li class="bg">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+    <script>
+        /* 
+            需求分析：
+                1、页面布局
+                2、明确操作对象：
+                    1、让imgdiv对象中的图片在imgbox盒子中移动
+                    2、需要跟左右按钮绑定点击事件，为了给imgdiv中的图片移动确定方向
+                    3、给每个数字按钮绑定点击事件，当点击按钮以后，就移动到对应的图片上  
+                3、给图片移动设置定时器，图片和图片之间的切换也需要设置一个定时器          
+        */
+        //获取操作对象
+        var box=document.querySelector(".box")
+        var imgbox=document.querySelector(".imgbox")
+        var imgs=document.querySelectorAll('.imgdiv img')
+        var leftbox=document.querySelector(".left")
+        var rightbox=document.querySelector(".right")
+        var lis=document.querySelectorAll("ul li")
+        //创建两个定时器
+        var dsq1 //图片每间隔多少时间切换的定时器
+        var dsq2 //图片和图片进行过渡的定时器
+        var a=0 //图片下标
+        //图片宽度
+        var imgWidth=imgs[0].offsetWidth
+        //图片的切换函数
+        function autoMove(){
+            a++ //改变当前图片下标
+            if(a>4){
+                a=0
+            }
+            //调用运动函数，让图片和图片之间进行切换
+            move()
+
+        }
+        dsq1=setInterval(autoMove,3000)
+
+        //创建运动函数
+        function move(){
+            //获取当前滚动距离
+            var start=imgbox.scrollLeft
+            //获取结束的滚动距离
+            var end=a*imgWidth
+            //创建开始步数
+            var first1=0
+            //结束步数
+            var last1=20
+            //设置步长：每一步所走的距离是用总路程除以步数
+            var speed=(end-start)/last1
+            //清除定时器
+            clearInterval(dsq2)
+            //创建定时器
+            dsq2=setInterval(function(){
+                first1++
+                //判断开始步数是否等于结束步数
+                if(first1==last1){
+                    clearInterval(dsq2)
+                    //直接把结束的值，赋值给盒子的滚动距离
+                    imgbox.scrollLeft=end
+                }else{
+                    //把计算结果重新赋值给start
+                    start+=speed
+                    //再把计算好的start赋值给盒子的滚动距离
+                    imgbox.scrollLeft=start
+                }
+            },30)
+        }
+    </script>
+</body>
+</html>

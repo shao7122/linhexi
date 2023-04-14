@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+*{
+    margin: 0px;
+    padding: 0px;
+}
+div{
+    width: 100px;
+    height: 100px;
+    background-color: coral;
+    position: absolute;
+}
+p{
+    border: 5px solid red;
+    height: 300px;
+    position: absolute;
+    left: 500px;
+    top: 0px;
+}
+</style>
+<body>
+    <div></div>
+    <p></p>
+</body>
+<script>
+    //简陋版1
+ //获取操作对象
+//  var div1 = document.querySelector('div')
+//  var p1 = document.querySelector('p')
+//  var dsq
+//  //给div绑定点击事件
+//  div1.onclick=function(){
+//     clearInterval(dsq)
+//     dsq = setInterval(function(){
+//          //获取当前div的偏移量
+//     var start = div1.offsetLeft
+//     //获取当前div的结束值
+//     var end = p1.offsetLeft-div1.offsetWidth
+//     //设置步长
+//     var speed = 5
+//     //当起始值和结束值相等的时候停止移动
+//     if(start == end){
+//         return
+//     }else{
+//         //给div对象设置偏移量
+//         div1.style.left=start+speed+'px'
+         
+//     }
+//     },30)
+   
+//  }
+
+//bug解决版 解决步长导致的移动过度
+var div1 = document.querySelector('div')
+ var p1 = document.querySelector('p')
+ var dsq
+ //给div绑定点击事件
+ div1.onclick=function(){
+    move(div1,400)
+   
+ }
+function move(ele,end){
+    clearInterval(dsq)
+    dsq = setInterval(function(){
+         //获取当前div的偏移量
+    var start = ele.offsetLeft
+    //设置步长
+    var speed = 7
+    //当起始值和结束值相等的时候停止移动
+    // if(start == end){
+    //     return
+    // }else{
+    //     //给div对象设置偏移量
+    //     ele.style.left=start+speed+'px'
+         
+    // }
+    //判断剩余的路程是否小于等于步长
+    if((end-start)<=speed){
+        //直接让当前div对象偏移量到达终点
+        ele.style.left=end+'px'
+        clearInterval(dsq)
+    }else{
+        //给div对象设置偏移量
+        ele.style.left=start+speed+'px'
+    }
+    },30)
+}
+</script>
+</html>

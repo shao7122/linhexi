@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px;
+            padding: 0px;
+        }
+        body{
+            height: 1200px;
+        }
+        div{
+            width: 100%;
+            height: 0px;
+            line-height: 50px;
+            background-color: pink;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            position: fixed;
+            top:0px;
+            transition: height 0.5s 0s linear;
+            overflow: hidden;
+        }
+        p{
+            width: 50px;
+            height: 50px;
+            background-color: violet;
+            position: fixed;
+            right: 30px;
+            bottom: 100px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>顶部通栏</div>
+    <p></p>
+    <script>
+        //获取操作对象
+        var div1=document.querySelector("div")
+        var p1=document.querySelector('p')
+        var t1=0 //当前滚动距离
+        var top1 //下一次的滚动距离
+        var dsq
+        //给window对象绑定滚动事件
+        window.onscroll=function(){
+            //获取滚动距离
+            top1=document.documentElement.scrollTop
+            //判断当前滚动距离是否大于300
+            if(top1>300){
+                //显示顶部通栏和p按钮
+                div1.style.height="50px"
+                p1.style.display="block"
+            }else{
+                //隐藏顶部通栏和p按钮
+                div1.style.height="0px"
+                p1.style.display="none"
+            }
+            console.log(t1,top1)
+            //判断t1是否小于top1
+            if(t1<top1){
+                //停止定时器
+                clearInterval(dsq)
+                t1=top1
+            }
+        }
+
+        //给p标签对象绑定点击事件
+        p1.onclick=function(){
+            //移除定时器
+            clearInterval(dsq)
+            //创建定时器
+            dsq=setInterval(function(){
+                //使用当前滚动距离减去步长，得到下一次的滚动距离
+                t1=top1
+                //计算下一次的滚动距离
+                top1=top1-10
+                //把结果重新赋值给滚动距离
+                document.documentElement.scrollTop=top1
+                //判断当前滚动距离是否小于等于0
+                if(top1<=0){
+                    clearInterval(dsq)
+                }
+            },20)
+        }
+    </script>
+</body>
+</html>

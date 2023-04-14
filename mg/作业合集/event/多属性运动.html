@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        width: 100px;
+        height: 100px;
+        background-color: rgb(184, 61, 61);
+        position: absolute;
+    }
+</style>
+<body>
+    <div></div>
+</body>
+<script>
+    //获取操作对象
+    var div1= document.querySelector('div')
+    div1.onclick=function(){
+        //对象中的键值是结束值
+        move(this,{left:400,top:300,opacity:30})
+    }
+    //创建运动函数
+    function move(ele,obj){
+        //创建对象存放每个属性的定时器
+        var ol={}
+        //遍历对象中的键值对
+        for(let key in obj){
+            //给ol对象中添加键值对
+            ol[key] = setInterval(function(){
+                //创建变量，接收当前对象的起始值
+                var start
+                //判断当前样式是否为opacity
+                if(key=='opacity'){
+                    start=getCss(ele,key)*100
+                }else{
+                    start=parseInt(getCss(ele,key))
+                }
+                //设置步长 表示每一步需要走总路程的十分之一
+                var speed=(obj[key]-start)/10
+                //给步长取整
+                speed=speed>0?Math.ceil(speed):Math.floor(speed)
+                //判断当前对象的这个样式剩余的运动量 是否小于等于步长
+                if(Math.abs(obj[key]-start)<=Math.abs(speed)){
+                    //清除当前样式对应的定时器
+                    clearInterval(ol[key])
+                    //判断当前的样式对应的定时器
+                    if(key=='opacity'){
+                        ele.style[key]=obj[key]/100
+                    }else{
+                        ele.style[key]=obj[key]+'px'
+                    }
+                }else{
+                    //判断当前样式是否为透明度
+                    if(key=='opacity'){
+                        ele.style[key]=(start+speed)/100
+                    }else{
+                        ele.style[key]=start+speed+'px'
+                    }
+                }
+            },30)
+        }
+    }
+    //获取当前样式的对应值
+    function getCss(ele,key){
+        //兼容浏览器
+        if(ele.currentStyle){
+            var num=ele.currentStyle[key]
+        }else{
+            var num= getComputedStyle(ele)[key]
+            return num
+        }
+    }
+</script>
+</html>
